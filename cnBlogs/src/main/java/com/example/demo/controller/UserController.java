@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.AppFinal;
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,8 @@ import java.util.UUID;
 @Slf4j
 public class UserController  {
 
+    @Autowired
+    private UserMapper userMapper;
     // 创建一个当前类日志对象
 //    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -96,7 +100,7 @@ public class UserController  {
         //todo:非空效验
         //1.动态获取当前项目的路径
         String path = ClassUtils.getDefaultClassLoader().getResource("static/upload").getPath();
-        path += "/upload";
+        path += AppFinal.IMAGE_PATH;
         log.info("path: "+path);
         //2.文件名（全局唯一的id【uuid】）+文件的原始类型
         String fileType = file.getOriginalFilename();
@@ -105,7 +109,18 @@ public class UserController  {
         String fileName = UUID.randomUUID().toString()+fileType;
         // 将文件保存到服务器
         file.transferTo( new File(path+fileName));
-        return "redirect:/reg_success.html";
+        //将用户信息存到服务器
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setPhoto(AppFinal.IMAGE_PATH+fileName); //设置头像地址
+        int result =  userMapper.addUser(user);
+        if(result > 0){
+            return "redirect:/reg_success.html";
+        }else {
+            return "redirect:/reg_err.html";
+        }
+
     }
 
     @RequestMapping("/getcookie")
