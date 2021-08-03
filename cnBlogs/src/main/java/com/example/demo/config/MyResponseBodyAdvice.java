@@ -15,8 +15,8 @@ import java.util.HashMap;
 @ControllerAdvice
 public class MyResponseBodyAdvice  implements ResponseBodyAdvice {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+//    @Autowired
+//    private ObjjectMapper objectMapper;
 
 
     @Override
@@ -35,13 +35,13 @@ public class MyResponseBodyAdvice  implements ResponseBodyAdvice {
         map.put("status",0);
         map.put("data",o);
         map.put("msg","");
-        if(o instanceof String){
-            //后端接口
-            //当前方法要给前端返回一个json字符串
-            serverHttpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
-            //返回一个json字符串
-            return objectMapper.writeValueAsString(map);
-        }
+//        if(o instanceof String){
+//            //后端接口
+//            //当前方法要给前端返回一个json字符串
+//            serverHttpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+//            //返回一个json字符串
+//            return objectMapper.writeValueAsString(map);
+//        }
         return map;
     }
 }

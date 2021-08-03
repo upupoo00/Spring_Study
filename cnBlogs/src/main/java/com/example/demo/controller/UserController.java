@@ -36,6 +36,7 @@ public class UserController {
     // 创建一个当前类日志对象
 //    private Logger logger = LoggerFactory.getLogger(UserController.class);
 
+
     @RequestMapping("/getalist")
     @ResponseBody
     public Object getFullUser(int uid) {

@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
-    //给所有地址添加/api
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         configurer.addPathPrefix("api", c -> true);
@@ -19,17 +18,15 @@ public class AppConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginInterceptor())
                 .addPathPatterns("/**") // 拦截所有的接口
                 .excludePathPatterns("/api/user/login") // 不拦截登录接口
-                .excludePathPatterns("/api/user/test")
                 .excludePathPatterns("/api/user/regin") // 不拦截注册接口
                 .excludePathPatterns("/login.html") // 不拦截登录页面
                 .excludePathPatterns("/regin.html") // 不拦截注册页面
-                .excludePathPatterns("/reg_success.html")
-                .excludePathPatterns("/reg_err.html")
+                .excludePathPatterns("/**/**.html") // 不拦截注册页面
                 .excludePathPatterns("/**/*.css")
                 .excludePathPatterns("/**/*.js")
                 .excludePathPatterns("/**/*.jpg")
-                .excludePathPatterns("/**/*.png")
-        ;
-
+                .excludePathPatterns("/reg_success.html")
+                .excludePathPatterns("/reg_err.html")
+                .excludePathPatterns("/**/*.png");
     }
 }

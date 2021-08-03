@@ -1,15 +1,11 @@
 package com.example.demo.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class User {
     private int id;

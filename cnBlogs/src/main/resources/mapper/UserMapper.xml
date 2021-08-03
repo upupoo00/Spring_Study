@@ -10,7 +10,7 @@
                     resultMap="com.example.demo.mapper.ArticleInfoMapper.BaseResultMap">
         </collection>
     </resultMap>
-    <insert id="addUser" parameterType="com.example.demo.model.User"
+    <insert id="addUser" parameterType="user"
             useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into userinfo(username,password,photo)
         values(
